@@ -57,7 +57,18 @@
 
 void clear_string(char s[], int n)
 {
+int i = 1;
+loop: 
+    if (i >= n)
+    goto done;
+    
+    s[i] = '\0';
+   
+    i++;
+    goto loop;
+done:;
 
+    
 }
 
 
@@ -70,7 +81,10 @@ void clear_string(char s[], int n)
 
 int my_isdigit(char c)
 {
-    return 0;
+  if (c >= '0' && c <= '9')
+   return 1;
+   
+   return 0;
 }
 
 
@@ -83,6 +97,9 @@ int my_isdigit(char c)
 
 int my_islower(char c)
 {
+    if (c>= 'a' && c>= 'z')
+    return 1;
+
     return 0;
 }
 
@@ -101,7 +118,10 @@ int my_islower(char c)
 
 int my_isupper(char c)
 {
-    return 0;
+   if (c>= 'A' && c<= 'Z')
+   return 1;
+   
+return 0;
 }
 
 
@@ -121,7 +141,16 @@ int my_isupper(char c)
 
 int my_isalpha(char c)
 {
+    if (my_islower(c))
+    return 1;
+
+    if (my_isupper(c))
+    return 1;
+
+
     return 0;
+
+
 }
 
 
@@ -141,8 +170,17 @@ int my_isalpha(char c)
 
 int my_isalnum(char c)
 {
-    return 0;
-}
+    int a = my_isalpha(c);
+    int d = my_isdigit(c);
+    int combined = 0;
+
+
+    }
+
+    
+        
+
+
 
 
 // ============================================================
@@ -161,7 +199,18 @@ int my_isalnum(char c)
 
 int my_strcmp(char a[], char b[])
 {
-    return 0;
+    int i = 0;
+loop:
+    if (a[i] == '\0' && b[i] == '\0')
+        return 0;
+
+    if (a[i] < b[i])
+        return -1;
+
+    if (a[i] > b[i])
+        return 1;
+    i++;
+    goto loop;
 }
 
 
@@ -179,6 +228,17 @@ int my_strcmp(char a[], char b[])
 
 int my_strchr(char s[], char c)
 {
+   int i = 0;
+loop:
+    if (s[i] == '\0')
+        return -1;
+    if (s[i] == c)
+        return i;
+    i++;
+    goto loop;
+
+   
+   
     return 0;
 }
 
@@ -196,7 +256,16 @@ int my_strchr(char s[], char c)
 
 int my_pow(int a, int b)
 {
-    return 0;
+   int res = 1;
+    int i = 0;
+loop:
+    if (i >= b)
+        goto done;
+    res = res * a;
+    i++;
+    goto loop;
+done:
+    return res;
 }
 
 
@@ -213,7 +282,17 @@ int my_pow(int a, int b)
 
 double my_pow_double(double a, int b)
 {
-    return 0.0;
+   double res = 1.0;
+    int i = 0;
+loop:
+    if (i >= b)
+        goto done;
+    res = res * a;
+    i++;
+    goto loop;
+done:
+    return res;
+
 }
 
 
@@ -235,6 +314,9 @@ double my_pow_double(double a, int b)
 char * format_my_isupper(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+
+    sprintf(dest, "isupper('%c') = %s", c, r ? "true" : "false");
+
     return dest;
 }
 
@@ -252,7 +334,11 @@ char * format_my_isupper(char dest[], char c, int r)
 char * format_my_isalpha(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+
+    sprintf(dest, "isalpha('%c') = %s", c, r ? "true" : "false");
+
     return dest;
+
 }
 
 
@@ -269,7 +355,11 @@ char * format_my_isalpha(char dest[], char c, int r)
 char * format_my_isalnum(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+
+    sprintf(dest, "isalnum('%c') = %s", c, r ? "true" : "false");
+
     return dest;
+
 }
 
 
@@ -287,8 +377,27 @@ char * format_my_isalnum(char dest[], char c, int r)
 
 char * format_my_strcmp(char dest[], int r)
 {
-    clear_string(dest, 64);
+     clear_string(dest, 64);
+    char *word = "equal";
+    
+    switch (r) {
+        case -1:
+            word = "less";
+            break;
+        case 0:
+            word = "equal";
+            break;
+        case 1:
+            word = "greater";
+            break;
+        default:
+            word = "equal";
+            break;
+    }
+    
+    sprintf(dest, "comparison: %s", word);
     return dest;
+
 }
 
 
@@ -305,7 +414,13 @@ char * format_my_strcmp(char dest[], int r)
 char * format_my_strchr(char dest[], int r)
 {
     clear_string(dest, 64);
+    if (r >= 0) {
+        sprintf(dest, "found at: %d", r);
+    } else {
+        sprintf(dest, "not found");
+    }
     return dest;
+
 }
 
 
@@ -323,7 +438,11 @@ char * format_my_strchr(char dest[], int r)
 char * format_my_pow(char dest[], int r)
 {
     clear_string(dest, 64);
+
+    sprintf(dest, "pow = %-12d", r);
+
     return dest;
+
 }
 
 
@@ -346,6 +465,45 @@ char * format_my_pow(char dest[], int r)
 
 char * format_my_pow_double(char dest[], double r)
 {
-    clear_string(dest, 64);
+     clear_string(dest, 64);
+   
+     double abs_r = r;
+   
+     if (abs_r < 0.0) {
+        
+        abs_r = -abs_r;
+    }
+
+    if (abs_r < 10.0) 
+    {
+       
+        sprintf(dest, "%012.9f", r);
+
+    } 
+    else if (abs_r < 100.0) 
+    {
+        
+        sprintf(dest, "%012.8f", r);
+
+    } 
+    else if (abs_r < 1000.0) 
+    {
+        
+        sprintf(dest, "%012.7f", r);
+
+    } 
+    else if (abs_r < 10000.0) 
+    {
+        
+        sprintf(dest, "%012.6f", r);
+
+    } 
+    else 
+    {
+        
+        sprintf(dest, "%012.5f", r);
+    }
+
     return dest;
+
 }

@@ -23,9 +23,16 @@ char * format_my_pow_double(char dest[], double r);
 
 int main(void)
 {
-    char buf[64]; 
-        
-    // test your functions here:
+    char buffer[64]; 
+
+        clear_string(buffer, 64);
+        buffer[25]= 'a';
+        buffer[27]= 'b';
+        buffer[2]= 'c';
+        clear_string(buffer,64);
+
+
+    // test yourfunctions here:
     // my_isdigit('5');
     // printf("%d\n", my_pow(2, 8));
     // printf("%s\n", format_my_pow(buf, my_pow(2, 8)));
