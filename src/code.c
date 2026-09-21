@@ -502,7 +502,7 @@ char * format_my_pow_double(char dest[], double r)
     {
         
         sprintf(dest, "%012.5f", r);
-    }
+    } 
 
     return dest;
 
