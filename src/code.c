@@ -1,5 +1,6 @@
-//char *AUTHOR_NAME        = (char *) "Your Name";
-//char *AUTHOR_AUTHORSHIP  = (char *) "I acknowledge that I have worked on this
+// Corey Anderson
+// CSCI 112 Fall 2026
+//"I acknowledge that I have worked on this
 // assignment independently, except where explicitly noted and referenced.
 // Any collaboration or use of external resources has been properly cited.
 // I am fully aware of the consequences of academic dishonesty and agree to
@@ -97,7 +98,7 @@ int my_isdigit(char c)
 
 int my_islower(char c)
 {
-    if (c>= 'a' && c>= 'z')
+    if (c>= 'a' && c<= 'z')
     return 1;
 
     return 0;
@@ -172,7 +173,17 @@ int my_isalnum(char c)
 {
     int a = my_isalpha(c);
     int d = my_isdigit(c);
-    int combined = 0;
+    
+    switch (a + d)
+    {
+
+        case 0:
+            return 0;
+
+        case 1: 
+        case 2:
+            return 1;
+    }
 
 
     }
