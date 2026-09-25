@@ -58,7 +58,7 @@
 
 void clear_string(char s[], int n)
 {
-int i = 1;
+int i = 0;
 loop: 
     if (i >= n)
     goto done;
@@ -67,7 +67,9 @@ loop:
    
     i++;
     goto loop;
-done:;
+
+done:
+    return;
 
     
 }
